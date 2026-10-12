@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INFOTEP - Verificación de Certificados</title>
+  <meta name="description" content="Portal oficial para consulta y verificación de certificados emitidos por el Instituto Nacional de Formación Técnico Profesional (INFOTEP).">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <!-- Librería QR -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    .font-serif-title {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .certificate-sheet {
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 1.8cm !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- VISTA 1: PORTAL DE VERIFICACIÓN -->
+  <div id="view-portal" class="min-h-screen flex flex-col justify-between">
+    <main class="max-w-4xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 flex-1">
+      <!-- Encabezado con barra azul -->
+      <div class="mb-8">
+        <div class="max-w-3xl">
+          <div class="flex items-center gap-3 mb-2.5">
+            <span class="w-1.5 h-8 bg-[#1d4ed8] rounded-xs inline-block shrink-0" aria-hidden="true"></span>
+            <h1 class="text-2xl sm:text-[27px] font-bold text-slate-900 tracking-tight">
+              Verificacion de Certificacion
+            </h1>
+          </div>
+          <p class="text-[15px] leading-relaxed text-slate-700">
+            El certificado que está consultando fue emitido por el <strong class="font-bold text-slate-900">Instituto Nacional de Formación Técnico Profesional (INFOTEP)</strong> a la persona que se muestra a continuación.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tarjeta 1: Participante -->
+      <div class="bg-white rounded-lg shadow-xs border border-slate-200 overflow-hidden mb-6">
+        <div class="h-1 bg-[#1d4ed8] w-full"></div>
+        <div class="px-6 py-3.5 border-b border-slate-100">
+          <h2 class="text-base font-bold text-slate-800">Participante</h2>
+        </div>
+        <div class="px-6 py-8 flex flex-col items-center text-center">
+          <div class="w-16 h-16 rounded-full bg-[#111827] flex items-center justify-center text-white mb-4 shadow-sm">
+            <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-slate-900 uppercase tracking-wide mb-6">
+            RONNY MONEGRO
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
+            <div class="bg-[#f8fafc] border border-slate-100 rounded-md py-4 px-6 text-center">
+              <span class="text-lg sm:text-[19px] font-bold text-[#1d4ed8] tracking-wider block tabular-nums">
+                40243008543
+              </span>
+              <span class="text-xs font-bold tracking-wider text-slate-500 uppercase mt-1 block">
+                NO. DOCUMENTO
+              </span>
+            </div>
+            <div class="bg-[#f8fafc] border border-slate-100 rounded-md py-4 px-6 text-center">
+              <span class="text-lg sm:text-[19px] font-bold text-slate-900 tracking-wider block tabular-nums">
+                2790461
+              </span>
+              <span class="text-xs font-bold tracking-wider text-slate-500 uppercase mt-1 block">
+                MATRÍCULA
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2: Certificado -->
+      <div class="bg-white rounded-lg shadow-xs border border-slate-200 overflow-hidden mb-8">
+        <div class="h-1 bg-[#f59e0b] w-full"></div>
+        <div class="px-6 py-3.5 border-b border-slate-100">
+          <h2 class="text-base font-bold text-slate-800">Certificado</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-[#f1f5f9] text-[13px] font-bold text-slate-700 tracking-wider uppercase border-b border-slate-200">
+                <th class="py-3.5 px-4 sm:px-6">CAPACITACIÓN</th>
+                <th class="py-3.5 px-3 text-center">LIBRO</th>
+                <th class="py-3.5 px-3 text-center">FOLIO</th>
+                <th class="py-3.5 px-3 text-center">NO. EGRESADO</th>
+                <th class="py-3.5 px-4">REGIONAL</th>
+                <th class="py-3.5 px-4">CIUDAD</th>
+                <th class="py-3.5 px-4 text-center">ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody class="text-sm">
+              <tr class="transition-colors hover:bg-slate-50/80">
+                <td class="py-4 px-4 sm:px-6 font-semibold text-slate-800 uppercase leading-snug">
+                  MECANICA DIESEL
+                </td>
+                <td class="py-4 px-3 text-center text-slate-700 tabular-nums">
+                  340
+                </td>
+                <td class="py-4 px-3 text-center text-slate-700 tabular-nums">
+                  140
+                </td>
+                <td class="py-4 px-3 text-center text-slate-700 tabular-nums font-medium">
+                  9
+                </td>
+                <td class="py-4 px-4 text-slate-700 uppercase font-medium">
+                  DIRECCION REGIONAL CIBAO NORTE, INFOTEP
+                </td>
+                <td class="py-4 px-4 text-slate-700 uppercase font-medium">
+                  SANTIAGO
+                </td>
+                <td class="py-4 px-4 text-center">
+                  <button
+                    onclick="mostrarCertificado()"
+                    class="bg-[#f59e0b] hover:bg-[#d97706] active:bg-[#b45309] text-white p-2.5 rounded-md shadow-xs transition-colors cursor-pointer inline-flex items-center justify-center"
+                    title="Ver Certificado de Aprobación Oficial"
+                    aria-label="Ver Certificado"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                      <circle cx="12" cy="8" r="6"/>
+                      <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <footer class="w-full border-t border-slate-200 bg-white py-6 text-center text-sm text-slate-600 no-print">
+      <p>
+        Copyright © 2026 <a href="http://www.infotep.gov.do" target="_blank" rel="noreferrer" class="text-blue-600 hover:underline font-medium">Infotep Certificados</a>. All rights reserved.
+      </p>
+    </footer>
+  </div>
+
+  <!-- VISTA 2: CERTIFICADO DE APROBACIÓN -->
+  <div id="view-certificate" class="hidden min-h-screen bg-slate-200/70 py-6 sm:py-10 px-3 sm:px-6 flex flex-col items-center">
+    <div class="w-full max-w-4xl mb-6 bg-white rounded-xl shadow-md border border-slate-200 p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3 no-print">
+      <button
+        onclick="mostrarPortal()"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3.5 py-2 rounded-lg transition-colors cursor-pointer"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        <span>Volver a Verificación</span>
+      </button>
+
+      <button
+        onclick="window.print()"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-white bg-blue-700 hover:bg-blue-800 active:bg-blue-900 px-4 py-2 rounded-lg shadow-sm transition-all cursor-pointer"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4H7v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+        </svg>
+        <span>Imprimir / Guardar PDF</span>
+      </button>
+    </div>
+
+    <!-- Hoja del Certificado -->
+    <div
+      class="certificate-sheet bg-white text-slate-900 shadow-2xl rounded-none w-full max-w-[800px] border border-slate-300 relative px-8 sm:px-14 py-12 sm:py-16 my-2 select-text"
+      style="min-height: 1050px;"
+    >
+      <div class="relative z-10 flex flex-col justify-between h-full min-h-[960px]">
+        <!-- Logo INFOTEP -->
+        <div class="text-center pt-2 mb-6">
+          <svg width="220" height="80" viewBox="0 0 240 85" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
+            <g transform="translate(85, 2)">
+              <path d="M 12 18 C 16 7, 34 2, 48 6 C 58 9, 64 18, 62 25 C 60 30, 52 32, 46 30 C 38 27, 36 21, 38 16 C 39 13, 42 11, 46 11 C 51 11, 54 14, 52 17 C 50 20, 47 21, 44 20" fill="none" stroke="#22c55e" stroke-width="3.2" stroke-linecap="round"/>
+              <circle cx="36" cy="22" r="10.5" stroke="#f59e0b" stroke-width="2.5" fill="none" stroke-dasharray="3 2"/>
+              <circle cx="36" cy="22" r="5" fill="#f59e0b"/>
+              <path d="M 27 24 C 29 32, 40 34, 46 29 C 48 27, 49 23, 46 21" fill="none" stroke="#0284c7" stroke-width="2.8" stroke-linecap="round"/>
+            </g>
+            <text x="120" y="62" text-anchor="middle" fill="#0c4a6e" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 900; font-size: 32px; letter-spacing: 1px;">
+              INFOTEP
+            </text>
+            <text x="120" y="78" text-anchor="middle" fill="#64748b" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 8.5px; letter-spacing: 2.5px;">
+              CERTIFICACION ISO 9001
+            </text>
+          </svg>
+        </div>
+
+        <div class="text-center mb-6">
+          <h1 class="text-3xl sm:text-[38px] font-normal text-[#1e293b] tracking-tight font-serif-title mb-3">
+            Certificado deAprobación
+          </h1>
+          <p class="text-sm font-medium text-slate-700">Otorgadoa:</p>
+        </div>
+
+        <div class="text-center mb-6">
+          <h2 class="text-2xl sm:text-[30px] font-bold text-slate-900 tracking-wider uppercase font-sans">
+            RONNY MONEGRO
+          </h2>
+        </div>
+
+        <div class="text-center mb-6">
+          <p class="text-sm text-slate-800 mb-3">
+            Por haber aprobado satisfactoriamente el curso de:
+          </p>
+          <h3 class="text-xl sm:text-[24px] font-bold text-slate-900 tracking-[0.18em] uppercase mb-4">
+            MECANICA DIESEL
+          </h3>
+
+          <div class="space-y-4 max-w-xl mx-auto text-sm text-slate-800">
+            <div class="flex items-baseline justify-center gap-2">
+              <span class="shrink-0">Con una duración de</span>
+              <span class="border-b border-slate-700 min-w-[280px] sm:min-w-[340px] text-center font-semibold text-slate-900 pb-0.5">
+                285
+              </span>
+              <span class="shrink-0">horas</span>
+            </div>
+            <div class="flex items-baseline justify-center gap-2">
+              <span class="shrink-0">Impartido en</span>
+              <span class="border-b border-slate-700 min-w-[340px] sm:min-w-[420px] text-center font-semibold text-slate-900 uppercase pb-0.5">
+                POLITECNICO JOSE DELIO GUZMAN
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center my-4 max-w-xl mx-auto px-4">
+          <p class="text-[13px] sm:text-sm text-slate-800 font-medium leading-relaxed">
+            En virtud de lo establecido en la Resolución que rige la expedición de Títulos, Certificados y Constancias
+          </p>
+        </div>
+
+        <div class="text-[13px] sm:text-[13.5px] text-slate-900 space-y-2.5 max-w-2xl mx-auto w-full my-4">
+          <div class="flex items-baseline gap-2">
+            <span class="font-semibold shrink-0">Dado en</span>
+            <span class="border-b border-slate-600 flex-1 text-center font-semibold uppercase pb-0.5">SANTIAGO</span>
+            <span class="font-semibold shrink-0">República Dominicana</span>
+          </div>
+
+          <div class="flex items-baseline gap-2">
+            <span class="shrink-0 font-medium">el día</span>
+            <span class="border-b border-slate-600 min-w-[70px] sm:min-w-[90px] text-center font-semibold pb-0.5">7</span>
+            <span class="shrink-0 font-medium">del mes</span>
+            <span class="border-b border-slate-600 flex-1 text-center font-semibold uppercase pb-0.5">OCTUBRE</span>
+            <span class="shrink-0 font-medium">del año</span>
+            <span class="border-b border-slate-600 min-w-[70px] sm:min-w-[90px] text-center font-semibold pb-0.5">2019</span>
+          </div>
+
+          <div class="flex items-baseline gap-2">
+            <span class="shrink-0 font-medium">y registrado en el libro</span>
+            <span class="border-b border-slate-600 min-w-[70px] sm:min-w-[80px] text-center font-semibold pb-0.5">340</span>
+            <span class="shrink-0 font-medium">folio</span>
+            <span class="border-b border-slate-600 min-w-[70px] sm:min-w-[80px] text-center font-semibold pb-0.5">140</span>
+            <span class="shrink-0 font-medium">con el Número</span>
+            <span class="border-b border-slate-600 flex-1 text-center font-semibold pb-0.5">9</span>
+          </div>
+        </div>
+
+        <!-- Firmas -->
+        <div class="grid grid-cols-2 gap-8 sm:gap-14 pt-8 pb-4 max-w-xl mx-auto w-full">
+          <div class="flex flex-col items-center text-center">
+            <div class="h-16 flex items-end justify-center mb-1 w-full">
+              <svg viewBox="0 0 220 70" class="h-14 w-44 text-slate-900" fill="none">
+                <path d="M20 52 C35 48, 48 38, 62 25 C68 20, 75 14, 82 22 C88 28, 86 42, 80 50 C75 58, 65 60, 58 54 C54 48, 60 38, 70 32 C82 26, 95 24, 110 32 C125 40, 140 38, 155 35" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M65 38 L92 34" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M78 44 L95 40" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M30 62 L185 45" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="w-full border-b border-slate-800 mb-2"></div>
+            <span class="text-xs font-bold text-slate-800">Gerente Regional</span>
+          </div>
+
+          <div class="flex flex-col items-center text-center">
+            <div class="h-16 flex items-end justify-center mb-1 w-full">
+              <svg viewBox="0 0 220 70" class="h-14 w-44 text-slate-900" fill="none">
+                <path d="M25 48 C28 35, 32 20, 36 18 C40 16, 42 30, 45 44 C48 30, 52 24, 56 22 C60 20, 62 32, 65 42 C70 32, 78 30, 84 34 C90 38, 96 36, 102 30 C106 26, 110 38, 115 42 C122 36, 130 32, 138 28 C144 24, 150 20, 154 26 C158 32, 155 42, 150 48" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M32 58 C55 56, 90 54, 130 52 C150 51, 168 50, 185 48" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="w-full border-b border-slate-800 mb-2"></div>
+            <span class="text-xs font-bold text-slate-800 leading-tight">
+              Encargado de Registro,<br>Estadísticas y Certificados
+            </span>
+          </div>
+        </div>
+
+        <!-- Validación & QR Code -->
+        <div class="pt-6 border-t border-slate-100 flex items-center justify-between mt-auto">
+          <div class="text-xs text-left">
+            <p class="font-bold text-red-600 mb-0.5">Para validar, visite:</p>
+            <a href="http://www.infotep.gov.do" target="_blank" rel="noreferrer" class="text-blue-700 underline font-semibold tracking-wide hover:text-blue-900">
+              http://www.infotep.gov.do
+            </a>
+          </div>
+
+          <div id="qrcode-box" class="border border-slate-200 p-1 bg-white"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function mostrarCertificado() {
+      document.getElementById('view-portal').classList.add('hidden');
+      document.getElementById('view-certificate').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    function mostrarPortal() {
+      document.getElementById('view-certificate').classList.add('hidden');
+      document.getElementById('view-portal').classList.remove('hidden');
+      window.scrollTo(0, 0);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const qrContainer = document.getElementById('qrcode-box');
+      if (qrContainer && window.QRCode) {
+        new QRCode(qrContainer, {
+          text: window.location.href || 'http://www.infotep.gov.do',
+          width: 82,
+          height: 82,
+          colorDark: '#000000',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+    });
+  </script>
+</body>
+</html>
