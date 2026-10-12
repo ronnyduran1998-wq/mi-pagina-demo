@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#087df1">
+<title>Consulta de registro | Demo</title>
+<style>
+:root {
+  --azul: #087df1;
+  --amarillo: #ffc400;
+  --fondo: #f3f4f8;
+  --texto: #292929;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: Arial, Helvetica, sans-serif;
+}
+header {
+  background: white;
+  border-left: 7px solid var(--azul);
+  padding: 22px max(18px, calc((100% - 850px)/2));
+  box-shadow: 0 2px 5px #0002;
+}
+.encabezado {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.logo {
+  background: var(--azul);
+  color: white;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  flex-shrink: 0;
+  overflow-wrap: anywhere;
+}
+header h1 { font-size: 22px; margin: 0 0 8px; }
+header p { line-height: 1.5; margin: 0; }
+main { max-width: 850px; margin: 25px auto; padding: 0 14px; }
+.marca {
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: bold;
+  color: #8a5b00;
+  padding: 12px;
+}
+.card {
+  background: white;
+  border-radius: 9px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px #0002;
+  border: 1px solid #ddd;
+}
+.participante { border-top: 6px solid var(--azul); }
+.registro { border-top: 6px solid var(--amarillo); }
+.card h2 {
+  font-size: 24px;
+  font-weight: normal;
+  padding: 20px 28px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+}
+.contenido { padding: 25px 28px 32px; }
+.perfil { text-align: center; padding: 8px 0 24px; }
+.graduacion { font-size: 65px; }
+.nombre { font-size: clamp(20px, 4vw, 30px); margin: 12px 0; overflow-wrap: anywhere; }
+.datos {
+  border-top: 1px solid #ddd;
+  padding: 30px 8px 0;
+  text-align: center;
+}
+.documento { color: var(--azul); font-size: 24px; font-weight: bold; overflow-wrap: anywhere; }
+.etiqueta { font-size: 18px; margin: 7px 0 30px; }
+.matricula { font-size: 23px; font-weight: bold; }
+.tabla-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 590px; }
+th { background: #ececee; padding: 16px 9px; font-size: 16px; }
+td { padding: 24px 9px; text-align: center; line-height: 1.6; overflow-wrap: anywhere; }
+.aviso {
+  text-align: center; color: #704f00; background: #fff3cd;
+  border: 1px solid #ead18b; border-radius: 7px;
+  padding: 13px; font-size: 13px; font-weight: bold;
+}
+footer { color: #737b84; background: white; padding: 24px; text-align: center; }
+.admin {
+  background: white; border: 1px solid #cbd5e1;
+  border-radius: 12px; padding: 22px; margin: 30px 0;
+}
+.admin h2 { margin-top: 0; }
+.admin label { display: block; font-size: 14px; margin: 13px 0 6px; }
+.admin input, .admin textarea {
+  width: 100%; padding: 11px; border: 1px solid #b9bec7;
+  border-radius: 7px; font: inherit; background: white;
+}
+.admin input[type="color"] { height: 44px; padding: 4px; }
+.admin input[type="checkbox"] { width: auto; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.botones { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+button {
+  border: 0; border-radius: 7px; padding: 12px 15px;
+  font-size: 14px; cursor: pointer; background: var(--azul); color: white;
+}
+.secundario { background: #505660; }
+#estado { font-size: 13px; color: #25723a; }
+@media(max-width: 520px) {
+  main { padding: 0 10px; margin-top: 12px; }
+  header { padding: 18px 14px; }
+  header h1 { font-size: 19px; }
+  .card h2 { padding: 18px; }
+  .contenido { padding: 20px 15px 25px; }
+  .grid { grid-template-columns: 1fr; }
+}
+@media print {
+  .admin, .no-print { display: none !important; }
+  body { background: white; }
+  main { margin: 10px auto; }
+  .card { box-shadow: none; break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="encabezado">
+    <div class="logo" id="vLogo">DEMO</div>
+    <div>
+      <h1 id="vTitulo">Consulta de registro</h1>
+      <p id="vDescripcion">Consulta los datos de esta plantilla de demostración.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="marca">DEMOSTRACIÓN · NO OFICIAL</div>
+
+  <section class="card participante">
+    <h2 id="vSeccionParticipante">Participante</h2>
+    <div class="contenido">
+      <div class="perfil">
+        <div class="graduacion" aria-hidden="true">🎓</div>
+        <div class="nombre" id="vNombre">NOMBRE DEL PARTICIPANTE</div>
+      </div>
+      <div class="datos">
+        <div class="documento" id="vDocumento">00000000000</div>
+        <div class="etiqueta" id="vEtiquetaDocumento">NO. DOCUMENTO</div>
+        <div class="matricula" id="vMatricula">0000000</div>
+        <div class="etiqueta" id="vEtiquetaMatricula">MATRÍCULA</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card registro">
+    <h2 id="vSeccionRegistro">Datos de capacitación</h2>
+    <div class="contenido">
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr>
+            <th>Capacitación</th><th>Libro</th><th>Folio</th>
+            <th>No. egresado</th><th>Regional o sede</th>
+          </tr></thead>
+          <tbody><tr>
+            <td id="vCurso">CURSO DE DEMOSTRACIÓN</td>
+            <td id="vLibro">000</td>
+            <td id="vFolio">000</td>
+            <td id="vEgresado">0</td>
+            <td id="vRegional">SEDE DE DEMOSTRACIÓN</td>
+          </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="aviso">
+    PLANTILLA DE DEMOSTRACIÓN · NO ES UN CERTIFICADO OFICIAL
+  </div>
+
+  <section class="admin no-print">
+    <h2>⚙ Panel de edición</h2>
+    <p>Modifica los campos y observa los cambios en la vista previa.</p>
+
+    <div class="grid">
+      <div><label for="logo">Texto del logotipo</label>
+        <input id="logo" maxlength="8" value="DEMO"></div>
+      <div><label for="titulo">Título de la página</label>
+        <input id="titulo" value="Consulta de registro"></div>
+    </div>
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" rows="2">Consulta los datos de esta plantilla de demostración.</textarea>
+
+    <div class="grid">
+      <div><label for="colorAzul">Color principal</label>
+        <input id="colorAzul" type="color" value="#087df1"></div>
+      <div><label for="colorAmarillo">Color secundario</label>
+        <input id="colorAmarillo" type="color" value="#ffc400"></div>
+    </div>
+
+    <label for="seccionParticipante">Título de la primera tarjeta</label>
+    <input id="seccionParticipante" value="Participante">
+    <label for="nombre">Nombre de demostración</label>
+    <input id="nombre" value="NOMBRE DEL PARTICIPANTE">
+    <label for="documento">Número de demostración</label>
+    <input id="documento" value="00000000000">
+    <label for="etiquetaDocumento">Etiqueta del número</label>
+    <input id="etiquetaDocumento" value="NO. DOCUMENTO">
+    <label for="matricula">Matrícula de demostración</label>
+    <input id="matricula" value="0000000">
+    <label for="etiquetaMatricula">Etiqueta de matrícula</label>
+    <input id="etiquetaMatricula" value="MATRÍCULA">
+
+    <label for="seccionRegistro">Título de la segunda tarjeta</label>
+    <input id="seccionRegistro" value="Datos de capacitación">
+    <label for="curso">Capacitación</label>
+    <input id="curso" value="CURSO DE DEMOSTRACIÓN">
+
+    <div class="grid">
+      <div><label for="libro">Libro</label><input id="libro" value="000"></div>
+      <div><label for="folio">Folio</label><input id="folio" value="000"></div>
+      <div><label for="egresado">No. egresado</label><input id="egresado" value="0"></div>
+      <div><label for="regional">Regional o sede</label><input id="regional" value="SEDE DE DEMOSTRACIÓN"></div>
+    </div>
+
+    <div class="botones">
+      <button id="guardar">Guardar en este navegador</button>
+      <button id="imprimir" class="secundario">Imprimir / PDF</button>
+      <button id="restablecer" class="secundario">Restablecer ejemplo</button>
+    </div>
+    <p id="estado" aria-live="polite">Plantilla lista para editar.</p>
+  </section>
+</main>
+
+<footer>Plantilla personalizable de demostración</footer>
+
+<script>
+const campos = [
+  "logo","titulo","descripcion","colorAzul","colorAmarillo",
+  "seccionParticipante","nombre","documento","etiquetaDocumento",
+  "matricula","etiquetaMatricula","seccionRegistro","curso",
+  "libro","folio","egresado","regional"
+];
+
+const iniciales = {};
+campos.forEach(c => iniciales[c] = document.getElementById(c).value);
+
+const relacion = {
+  logo:"Logo", titulo:"Titulo", descripcion:"Descripcion",
+  seccionParticipante:"SeccionParticipante", nombre:"Nombre",
+  documento:"Documento", etiquetaDocumento:"EtiquetaDocumento",
+  matricula:"Matricula", etiquetaMatricula:"EtiquetaMatricula",
+  seccionRegistro:"SeccionRegistro", curso:"Curso", libro:"Libro",
+  folio:"Folio", egresado:"Egresado", regional:"Regional"
+};
+
+function actualizar() {
+  Object.entries(relacion).forEach(([campo, id]) => {
+    document.getElementById("v" + id).textContent =
+      document.getElementById(campo).value;
+  });
+  document.documentElement.style.setProperty(
+    "--azul", document.getElementById("colorAzul").value);
+  document.documentElement.style.setProperty(
+    "--amarillo", document.getElementById("colorAmarillo").value);
+}
+
+function guardar() {
+  actualizar();
+  try {
+    const datos = {};
+    campos.forEach(c => datos[c] = document.getElementById(c).value);
+    localStorage.setItem("miPlantillaDemo", JSON.stringify(datos));
+    document.getElementById("estado").textContent =
+      "Cambios guardados en este navegador.";
+  } catch(e) {
+    document.getElementById("estado").textContent =
+      "Cambios aplicados, pero no se pudieron guardar localmente.";
+  }
+}
+
+campos.forEach(c => {
+  document.getElementById(c).addEventListener("input", () => {
+    actualizar();
+    document.getElementById("estado").textContent = "Cambios sin guardar.";
+  });
+});
+
+document.getElementById("guardar").addEventListener("click", guardar);
+document.getElementById("imprimir").addEventListener("click", () => window.print());
+
+document.getElementById("restablecer").addEventListener("click", () => {
+  campos.forEach(c => document.getElementById(c).value = iniciales[c]);
+  actualizar();
+  try { localStorage.removeItem("miPlantillaDemo"); } catch(e) {}
+  document.getElementById("estado").textContent = "Ejemplo restablecido.";
+});
+
+try {
+  const datos = JSON.parse(localStorage.getItem("miPlantillaDemo") || "null");
+  if (datos) campos.forEach(c => {
+    if (typeof datos[c] === "string") document.getElementById(c).value = datos[c];
+  });
+} catch(e) {}
+
+actualizar();
+</script>
+</body>
+</html>
